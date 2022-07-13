@@ -1,0 +1,21 @@
+@import "./scssComponents/typography";
+
+.ecom-mockup-app {
+  .header {
+    height: 120px;
+    background-color: #f4691f;
+
+    h1 {
+      margin-bottom: 0.5em;
+      padding-top: 60px;
+      color: white;
+      font-size: 39px;
+      font-weight: 600;
+      line-height: 1.23;
+    }
+  }
+
+  @import "./scssComponents/base";
+  @import "./scssComponents/animations";
+  @import "./scssComponents/layout";
+}

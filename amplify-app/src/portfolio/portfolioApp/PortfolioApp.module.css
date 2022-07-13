@@ -1,0 +1,291 @@
+.portfolio .header {
+  height: 120px;
+  background-color: black;
+}
+.portfolio .header h1 {
+  margin-bottom: 0.5em;
+  padding-top: 60px;
+  color: white;
+  font-size: 39px;
+  font-weight: 600;
+  line-height: 1.23;
+}
+.portfolio .headerInfo {
+  margin: 25px auto 25px;
+}
+.portfolio .headerInfo h2,
+.portfolio .headerInfo h3,
+.portfolio .headerInfo p {
+  max-width: 700px;
+  margin: auto;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+.portfolio .headerInfo p {
+  letter-spacing: normal;
+  font-style: italic;
+}
+.portfolio .bio {
+  max-width: 405px;
+  margin: auto 10px auto;
+}
+.portfolio .bioExpand {
+  margin: auto 10px auto;
+  max-width: 700px;
+  opacity: 0;
+  max-height: 0px;
+  transition: 2s;
+  visibility: hidden;
+}
+.portfolio .bioExpand.expanded {
+  max-height: 1000px;
+  opacity: 1;
+  visibility: visible;
+}
+.portfolio .bioExpand a {
+  border-bottom: 1px solid black;
+  color: black;
+}
+.portfolio .bioExpanderElement {
+  cursor: pointer;
+  width: 95px;
+  margin: 15px auto 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.portfolio .bioExpanderElement p {
+  margin: 0;
+  padding-right: 5px;
+}
+
+.portfolio .contactInfo {
+  background-color: black;
+  margin: 25px auto 25px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.portfolio .contactInfoElement {
+  margin-left: 10%;
+  color: white;
+  height: 35px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+.portfolio .contactInfoElement svg {
+  margin-right: 10px;
+}
+.portfolio .skillCards {
+  background-color: black;
+  background: linear-gradient(to left, #fff 0%, #fff 50%, #000 50%, #000 100%);
+}
+.portfolio .skillCardsRestricted {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  max-width: 900px;
+  margin: auto;
+  margin: 25px auto 25px;
+}
+.portfolio label {
+  color: black;
+  font-size: 16px;
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  display: block;
+  width: 250px;
+  height: 150px;
+  cursor: pointer;
+  transition-duration: 500ms;
+  margin: 10px;
+}
+.portfolio .card {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition: all 600ms;
+  transition: all 600ms;
+  z-index: 20;
+}
+.portfolio .card div {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: #fff;
+  border: 1px solid black;
+  text-align: center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.portfolio .card .back {
+  border: 2px solid white;
+  background: black;
+  color: #fff;
+  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+.portfolio input {
+  display: none;
+}
+.portfolio input:checked + .card {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+}
+.portfolio label:hover {
+  transform: scale(1.05);
+}
+.portfolio .cardArrow {
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+  stroke-width: 0.4px;
+}
+.portfolio .experienceCards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  text-align: left;
+  margin: 25px auto 25px;
+  padding-bottom: 25px;
+  max-width: 850px;
+}
+.portfolio .experienceCard {
+  width: 360px;
+  margin: 25px auto 25px;
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+}
+.portfolio .experienceCard h3 {
+  border-bottom: 1px solid black;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+.portfolio .companyFirstLetter {
+  text-align: center;
+  display: inline-block;
+  background-color: black;
+  color: white;
+  width: 25px;
+  height: 25px;
+  margin-right: 2px;
+}
+.portfolio .experienceCard p:nth-child(2) {
+  font-weight: 600;
+  letter-spacing: 1px;
+  border-bottom: 1px solid black;
+  text-align: center;
+}
+.portfolio .projectCards {
+  max-width: 950px;
+  margin: 25px auto;
+}
+.portfolio .projectCard {
+  margin: 25px auto 25px auto;
+  max-width: 500px;
+  background-color: black;
+  color: white;
+  font-size: 14.5px;
+  padding: 15px;
+}
+.portfolio .projectCard h3 {
+  color: white;
+  padding: 10px;
+  border-bottom: 2px solid white;
+}
+.portfolio .projectCard .tech {
+  display: flex;
+  justify-content: flex-end;
+}
+.portfolio .projectCard ul {
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  border-left: 1px solid white;
+  list-style-type: none;
+  width: 175px;
+  margin:auto;
+  position: relative;
+}
+.portfolio .projectCard .projectCardTechIcon {
+  font-weight: 900;
+  letter-spacing: 3px;
+  font-size: 16px;
+  position: absolute;
+  bottom: 50%;
+  transform: rotate(-90deg) translateX(-50%);
+  left: 0;
+}
+.portfolio .projectCard li {
+  text-decoration: none;
+  border-bottom: 1px solid white;
+}
+.portfolio .projectCard li:last-child {
+  border-bottom: none;
+}
+.portfolio .projectCard button {
+  border:none;
+  width: 50%;
+  color: black;
+  font-weight:600;
+  background-color: white;
+  display: block;
+  margin-left: auto;
+  margin-top: 15px;
+  transition-duration: 250ms;
+}
+.portfolio .projectCard button:hover{
+  cursor:pointer;
+  transform: scale(1.05);
+}
+
+@media screen and (min-width: 425px) {
+  .portfolio .bio {
+    margin: auto;
+  }
+  .portfolio .skillCards {
+    background-color: black;
+    background: linear-gradient(
+      to bottom right,
+      #fff 0%,
+      #fff 50%,
+      #000 50%,
+      #000 100%
+    );
+  }
+}
+@media screen and (min-width: 720px) {
+  .portfolio .bioExpand {
+    margin: auto;
+  }
+}
+@media screen and (min-width: 810px) {
+  .portfolio .headerInfo {
+    text-align: left;
+  }
+  .portfolio .contactInfoRestricted {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    max-width: 900px;
+    margin: auto;
+  }
+  .portfolio .contactInfoElement {
+    width: 325px;
+  }
+
+  .portfolio .projectCard:nth-child(3n + 1) {
+    margin: 25px auto 25px 28px;
+  }
+  .portfolio .projectCard:nth-child(3n) {
+    margin: 25px 28px 25px auto;
+  }
+}
