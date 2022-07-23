@@ -180,10 +180,9 @@ function PortfolioApp(props) {
         "IN PROGRESS: A headless ecommerce website using Shopify as its CMS. This project is completely functional and is poised to release as the official code source for the operational store.",
       tech: [
         "React",
-        "React Query",
         "React Router",
-        "React Reveal",
         "React Spring",
+        "React Draggable",
         "React Icons",
         "SCSS",
         "GraphQL",

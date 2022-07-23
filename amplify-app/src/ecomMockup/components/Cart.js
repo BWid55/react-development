@@ -1,21 +1,16 @@
-import React, { useEffect, useState, useContext } from "react";
-import { storefront } from "../utils/storefront";
-import CartContext from "../utils/cartContext";
+import React, { useState, useContext } from "react";
+import { useTransition, animated } from "react-spring";
 
 import { BsMinecart } from "react-icons/bs";
-import {
-  AiFillCloseCircle,
-  AiOutlinePlus,
-  AiOutlineMinus,
-} from "react-icons/ai";
+import { AiFillCloseCircle } from "react-icons/ai";
+import CartItems from "./CartItems";
+import CartQuantity from "./CartQuantity";
+import CartContext from "../utils/cartContext";
 
 function Cart() {
-  const { cartItems, setCartItems } = useContext(CartContext);
-  const [cartItemsQuerySection, setCartItemsQuerySection] = useState("");
+  const [createCheckoutTrigger, setCreateCheckoutTrigger] = useState(false);
   const [toggleCart, setToggleCart] = useState(false);
-  const cartQuantity = cartItems.reduce(function (prev, curr) {
-    return prev + curr.quantity;
-  }, 0);
+  const { cartQuantity } = useContext(CartContext)
 
   const cartOpenHandler = () => {
     setToggleCart(true);
@@ -23,67 +18,14 @@ function Cart() {
   const cartCloseHandler = () => {
     setToggleCart(false);
   };
-  const minusCartItemHandler = (id) => {
-    setCartItems((previousItems) =>
-      previousItems.map((item) => {
-        if (item.id === id) {
-          return {
-            id: item.id,
-            quantity: item.quantity - 1,
-            image: item.image,
-            price: item.price,
-            productTitle: item.productTitle,
-            variantTitle: item.variantTitle,
-          };
-        } else {
-          return item;
-        }
-      })
-    );
+  const checkoutButtonClickHandler = () => {
+    setCreateCheckoutTrigger(true);
   };
-  const plusCartItemHandler = (id) => {
-    setCartItems((previousItems) =>
-      previousItems.map((item) => {
-        if (item.id === id) {
-          return {
-            id: item.id,
-            quantity: item.quantity + 1,
-            image: item.image,
-            price: item.price,
-            productTitle: item.productTitle,
-            variantTitle: item.variantTitle,
-          };
-        } else {
-          return item;
-        }
-      })
-    );
-  };
-  const createCheckoutHandler = async () => {
-    const createCheckout = async () => {
-      const { data } = await storefront(checkoutQuery);
-      window.location.href = data.checkoutCreate.checkout.webUrl;
-    };
-    const checkoutQuery = `mutation {
-      checkoutCreate(input: {
-        lineItems: [${cartItemsQuerySection}]
-      }) {
-        checkout {
-           webUrl
-        }
-      }
-    }`;
-    createCheckout();
-  };
-  useEffect(() => {
-    setCartItemsQuerySection(
-      cartItems
-        .map((item) => {
-          return `{variantId:"${item.id}",quantity:${item.quantity}}`;
-        })
-        .join(",")
-    );
-  }, [cartItems]);
+
+  const cartTransition = useTransition(toggleCart, {
+    from: { x: 250, opacity: 0 },
+    enter: { x: 0, opacity: 1 },
+  });
 
   return (
     <section>
@@ -91,7 +33,7 @@ function Cart() {
         <div className="cart-alignment">
           <div className="cart-icon" onClick={cartOpenHandler}>
             <BsMinecart size={20} className="cart-icon-image" />
-            <span className="cart-icon-quantity">{cartQuantity}</span>
+            <CartQuantity />
           </div>
         </div>
       </div>
@@ -99,56 +41,27 @@ function Cart() {
         {toggleCart && (
           <>
             <div className="cart-backdrop" onClick={cartCloseHandler} />
-            <div className="cart-popup">
-              <div className="cart-popup-header">
-                <h2>What You're Getting</h2>
-                <AiFillCloseCircle size={25} onClick={cartCloseHandler} />
-              </div>
-              <div className="cart-popup-items">
-                {cartQuantity === 0 && (
-                  <div className="cart-popup-items-empty">
-                    <div>
-                      <h3>Nada</h3>
-                      <h3>Zip</h3>
-                      <h3>Zilch</h3>
-                      <h3>Nothing</h3>
+            {cartTransition(
+              (style, item) =>
+                item && (
+                  <animated.div style={style} className="cart-popup">
+                    <div className="cart-popup-header">
+                      <h2>What You're Getting</h2>
+                      <AiFillCloseCircle size={25} onClick={cartCloseHandler} />
                     </div>
-                  </div>
-                )}
-                {cartItems.map(
-                  (item) =>
-                    item.quantity > 0 && (
-                      <div className="cart-popup-items-item" key={item.id}>
-                        <div className="cart-popup-items-item-data">
-                          <img src={item.image} alt="cart product" />
-                          <div className="cart-popup-items-item-data-text">
-                            <h3>{item.productTitle}</h3>
-                            <span>{item.variantTitle}</span>
-                            <div>
-                              <AiOutlineMinus
-                                onClick={() => minusCartItemHandler(item.id)}
-                              />
-                              <span>{item.quantity}</span>
-                              <AiOutlinePlus
-                                onClick={() => plusCartItemHandler(item.id)}
-                              />
-
-                              <span>{item.price * item.quantity}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )
-                )}
-              </div>
-              <button
-                className="cart-popup-checkout"
-                onClick={createCheckoutHandler}
-                disabled={!cartQuantity}
-              >
-                Checkout
-              </button>
-            </div>
+                    <CartItems
+                      createCheckoutTrigger={createCheckoutTrigger}
+                    />
+                    <button
+                      className="cart-popup-checkout"
+                      onClick={checkoutButtonClickHandler}
+                      disabled={!cartQuantity}
+                    >
+                      Checkout
+                    </button>
+                  </animated.div>
+                )
+            )}
           </>
         )}
       </div>

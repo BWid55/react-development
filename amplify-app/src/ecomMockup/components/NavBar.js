@@ -8,7 +8,13 @@ function NavBar() {
   return (
     <div className="navigation-outer-color">
       <nav className="navigation">
-        <Dropdown dropdownTitle={<Link className="navigation-item-link-level-one" to="/">Home</Link>} />
+        <div className="navigation-item">
+          <p className="navigation-item-link-level-one">
+            <Link className="navigation-item-link-level-one" to="/">
+              Home
+            </Link>
+          </p>
+        </div>
         <Dropdown dropdownTitle="Candles">
           <Link to="/assortment/for-him">For Him</Link>
           <Link to="/assortment/for-her">For Her</Link>

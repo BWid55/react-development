@@ -43,7 +43,7 @@ function App() {
         <div
           style={{
             position: "fixed",
-            zIndex: "2",
+            zIndex: "100",
             width: "100%",
             backgroundColor: "black",
           }}
