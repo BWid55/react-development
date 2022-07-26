@@ -8,10 +8,12 @@ import CartQuantity from "./CartQuantity";
 import CartContext from "../utils/cartContext";
 
 function Cart() {
+  //state and context used transfer to Shopify checkout, update the quantity of items in cart, and open/close the cart
   const [createCheckoutTrigger, setCreateCheckoutTrigger] = useState(false);
-  const [toggleCart, setToggleCart] = useState(false);
   const { cartQuantity } = useContext(CartContext)
+  const [toggleCart, setToggleCart] = useState(false);
 
+  //handlers used to trigger opening the cart, closing the cart, and transferring to Shopify checkout
   const cartOpenHandler = () => {
     setToggleCart(true);
   };
@@ -22,6 +24,7 @@ function Cart() {
     setCreateCheckoutTrigger(true);
   };
 
+  //function to show cart with a pleasant transition
   const cartTransition = useTransition(toggleCart, {
     from: { x: 250, opacity: 0 },
     enter: { x: 0, opacity: 1 },

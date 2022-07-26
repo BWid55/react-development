@@ -338,7 +338,7 @@ footer {
   }
   &-main-product {
     position: relative;
-    height:275px;
+    height: 275px;
 
     &-image-icon-alignment {
       position: absolute;
@@ -420,8 +420,13 @@ footer {
         width: 100%;
       }
     }
-    img {
+    &-image {
+      height: 150px;
       width: 150px;
+
+      img {
+        width: 150px;
+      }
     }
   }
 }
@@ -494,8 +499,8 @@ footer {
       }
     }
   }
-  .custom-text-label{
-    display:block;
-    margin-top:25px;
+  .custom-text-label {
+    display: block;
+    margin-top: 25px;
   }
 }

@@ -3,7 +3,10 @@ import React, { useState, useEffect } from "react";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 
 function QuantityButtons(props) {
+  //component used to increment and decriment (used in cart and product components)
+  //requireAboveZero state requires 1 or above to be maintained (e.g. cannot go negative on assortment pages)
   const [requireAboveZero, setRequireAboveZero] = useState(false);
+  //two handlers for decrementing and incrementing quantity respectively, as well as an effect to track if parent component requires a minimum of 1
   const minusHandler = () => {
     props.onDecrease(props.cartItemId);
   };

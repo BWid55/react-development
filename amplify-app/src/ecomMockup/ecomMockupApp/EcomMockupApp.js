@@ -5,6 +5,7 @@ import CartContext from "../utils/cartContext";
 
 import HomePage from "../pages/Homepage";
 import CandleProductPage from "../pages/CandleProductPage";
+import BundleProductPage from "../pages/BundleProductPage";
 import CandleAssortmentPage from "../pages/CandleAssortmentPage";
 import AboutPage from "../pages/AboutPage.js";
 import ShippingAndReturnsPage from "../pages/ShippingAndReturnsPage";
@@ -13,9 +14,11 @@ import ContactPage from "../pages/ContactPage";
 import NotFoundPage from "../pages/NotFoundPage";
 
 function EcomMockupApp() {
+  //context init for cart
   const [cartItems, setCartItems] = useState([]);
   const [cartQuantity, setCartQuantity] = useState(0);
 
+  //load from top of page
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -29,6 +32,7 @@ function EcomMockupApp() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path={"/candle/*"} element={<CandleProductPage />} />
+            <Route path={"/bundle/*"} element={<BundleProductPage />} />
             <Route path={"/assortment/*"} element={<CandleAssortmentPage />} />
             <Route path={"/about"} element={<AboutPage />} />
             <Route

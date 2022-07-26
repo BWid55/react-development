@@ -481,7 +481,11 @@
 .ecom-mockup-app .collection-items-item a button {
   width: 100%;
 }
-.ecom-mockup-app .collection-items-item img {
+.ecom-mockup-app .collection-items-item-image {
+  height: 150px;
+  width: 150px;
+}
+.ecom-mockup-app .collection-items-item-image img {
   width: 150px;
 }
 @media screen and (min-width: 850px) {

@@ -6,14 +6,18 @@ import { storefront } from "../utils/storefront";
 import CartContext from "../utils/cartContext";
 
 function CartItems({ createCheckoutTrigger }) {
+  //context used to update cart data through + and - on cart items
   let { cartItems, setCartItems, cartQuantity, setCartQuantity } = useContext(CartContext);
+  //state used to house product data which is used in the query section, on checkout initiation this data is sent in the API call to add all products to the checkout intiated
   const [cartItemsQuerySection, setCartItemsQuerySection] = useState("");
+  //update context on + and - to reflect increase or decrease in cart quantity
   setCartQuantity(
     (cartQuantity = cartItems.reduce(function (prev, curr) {
       return prev + curr.quantity;
     }, 0))
   );
 
+  //handler to decrement item quantity by 1 if >1 and remove from the cart items if =1
   const minusCartItemHandler = (itemId) => {
     setCartItems((previousItems) =>
       previousItems.map((item) => {
@@ -34,6 +38,7 @@ function CartItems({ createCheckoutTrigger }) {
       })
     );
   };
+  //handler to increment item quantity by 1
   const plusCartItemHandler = (itemId) => {
     setCartItems((previousItems) =>
       previousItems.map((item) => {

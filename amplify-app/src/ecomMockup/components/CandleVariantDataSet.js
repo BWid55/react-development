@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Price from "./Price";
 
 function PriceAndVariant(props) {
+  //component used to update variant item data in CandleProduct.js
   const productTitle = props.productTitle;
   const variantTitle = props.variantTitle;
   const price = props.price;

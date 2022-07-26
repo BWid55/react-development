@@ -8,11 +8,13 @@ import { RiHandHeartLine } from "react-icons/ri";
 import { AiFillStar } from "react-icons/ai";
 
 function Home() {
+  //component housing static homepage content (no API call, statically calling data)
+  //function to load homepage main product with a pleasant transition
   const singleProductTransition = useTransition(true, {
     from: { y: 250, opacity: 0 },
     enter: { y: 0, opacity: 1 },
-    delay: 250,
-    config: { duration: 250 },
+    delay: 350,
+    config: { duration: 350 },
   });
 
   return (

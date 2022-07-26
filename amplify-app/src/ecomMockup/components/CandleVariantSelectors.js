@@ -1,6 +1,7 @@
 import React from "react";
 
 const ProductVariantSelector = (props) => {
+  //component used for updating variant selected in CandleProduct.js
   const changeHandler = (e, type) => {
     if (type === "Scent") {
       props.onScentChange(e.target.value);

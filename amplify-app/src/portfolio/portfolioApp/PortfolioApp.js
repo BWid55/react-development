@@ -162,7 +162,7 @@ function PortfolioApp(props) {
     {
       name: "Gratitudes Application",
       description:
-        "An app where a user can submit what they are feeling grateful for and retrieve another user's submission. The retrieval, submission, and report functionality is operating and data is stored on AWS servers.",
+        "An app where a user can submit what they are feeling grateful for and retrieve another user's submission. The API and database functionality is hosted on AWS servers.",
       tech: [
         "React",
         "Ant Design",

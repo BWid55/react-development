@@ -3,31 +3,33 @@ import { storefront } from "../utils/storefront";
 import { useLocation } from "react-router-dom";
 import Draggable from "react-draggable";
 import CartContext from "../utils/cartContext";
-
 import { GiClick } from "react-icons/gi";
 import CandleVariantSelectors from "./CandleVariantSelectors";
-import PriceAndVariant from "./PriceAndVariant";
+import PriceAndVariant from "./CandleVariantDataSet";
 
 function CandleProduct() {
+  //context used for updating cart
   const { cartItems, setCartItems, cartQuantity, setCartQuantity } =
     useContext(CartContext);
+  //location used for formatting request to Shopify API (send request based on url location)
   const location = useLocation();
+  //product data recieved from Shopify API store here
   const [product, setProduct] = useState(null);
+  //these state items are used for selecting variant items for the cart, including customAttributes as custom text
   const [scent, setScent] = useState("Surprise me!");
   const [size, setSize] = useState("8 oz Regular");
   const [customText, setCustomText] = useState("");
-
   const [cartId, setCartId] = useState(null);
   const [variantId, setVariantId] = useState(null);
   const [price, setPrice] = useState(null);
   const [variantTitle, setVariantTitle] = useState(null);
   const [productTitle, setProductTitle] = useState(null);
 
+  //function used to make requests for product data from Shopify API
   const getProduct = async () => {
     const { data } = await storefront(productPageQuery);
     setProduct(data);
   };
-
   const productPageQuery = `
     {
       productByHandle(handle: "${location.pathname.split("/").slice(-1)[0]}") {
@@ -63,10 +65,11 @@ function CandleProduct() {
       }
     }
   `;
-
   useEffect(() => {
     getProduct();
   }, [productPageQuery]);
+
+  //used to update variant data for cart item on variant selector change
   useEffect(() => {
     setCartId(variantId + customText);
   }, [variantId, customText]);
@@ -76,6 +79,7 @@ function CandleProduct() {
     }
   }, [product]);
 
+  //handlers used to trigger variant updates
   const scentChangeHandler = (scent) => {
     setScent(scent);
   };
@@ -91,6 +95,8 @@ function CandleProduct() {
   const customTextHandler = (e) => {
     setCustomText(e.target.value);
   };
+
+  //handler used to add a variant (with custom text if applicable) to the cart, either through the addition of a new item or the incrememnt of an existing item
   const cartAddHandler = () => {
     if (cartItems.length === 0) {
       setCartItems([
@@ -153,6 +159,7 @@ function CandleProduct() {
       }
     }
   };
+
   return (
     <>
       {" "}

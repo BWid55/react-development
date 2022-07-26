@@ -5,6 +5,7 @@ import Cart from "./Cart";
 import Dropdown from "./Dropdown";
 
 function NavBar() {
+  //component housing navigation links (including links sent to dropdown component)
   return (
     <div className="navigation-outer-color">
       <nav className="navigation">

@@ -6,11 +6,15 @@ import QuantityButtons from "../components/QuantityButtons";
 import { useTransition, animated } from "react-spring";
 
 function CandleAssortment() {
+  //location used for formatting request to Shopify API (send request based on url location)
   const location = useLocation();
+  //collection data recieved from Shopify API store here
   const [assortment, setAssortment] = useState(null);
+  //states used for referencing loction in possible collection requests (forward or backward) and to show user context (e.g. page number)
   const [pageNumber, setPageNumber] = useState(1);
   const [pageInclusion, setPageInclusion] = useState(null);
 
+  //function used to make requests for collection data from Shopify API
   const getAssortmentContent = async () => {
     const { data } = await storefront(assortmentContentQuery);
     setAssortment(data);
@@ -50,6 +54,7 @@ function CandleAssortment() {
     getAssortmentContent();
   }, [assortmentContentQuery]);
 
+  //two handlers used to trigger requests to Shopify API, update visual page state content, and load from top of page
   const previousPageHandler = () => {
     window.scrollTo(0, 0);
     setPageNumber(pageNumber - 1);
@@ -65,11 +70,12 @@ function CandleAssortment() {
     );
   };
 
+  //function to load collection items with a pleasant transition
   const productsTransition = useTransition(true, {
     from: { x: 250, opacity: 0 },
     enter: { x: 0, opacity: 1 },
-    delay: 250,
-    config: { duration: 250 },
+    delay: 350,
+    config: { duration: 350 },
     reset: true,
   });
 
@@ -105,12 +111,15 @@ function CandleAssortment() {
                             to={"/candle/" + product.node.handle}
                             className="button-link"
                           >
-                            <img
-                              src={
-                                product.node.images.edges[0].node.transformedSrc
-                              }
-                              alt={product.node.images.edges[0].node.altText}
-                            />
+                            <div className="collection-items-item-image">
+                              <img
+                                src={
+                                  product.node.images.edges[0].node
+                                    .transformedSrc
+                                }
+                                alt={product.node.images.edges[0].node.altText}
+                              />
+                            </div>
                             <button style={{ margin: "auto" }}>
                               {product.node.title}
                             </button>

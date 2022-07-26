@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Footer() {
+  //component for static footer content (only used in Homepage.js)
   return (
     <footer>
       <Link to={"assortment/best-sellers"} className="button-link">

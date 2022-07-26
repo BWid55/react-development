@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 function Dropdown(props) {
+  //state used to reveal individual dropdown when title is clicked and hide when the mouse is removed form the dropdown or when click occurs outside the dropdown
   const [dropdownIsRevealed, setDropdownIsRevealed] = useState(false);
 
+  //handles used to set state for reveal/hide an individual dropdown
   const toggleDropdownHandler = () => {
     setDropdownIsRevealed(!dropdownIsRevealed);
   };
