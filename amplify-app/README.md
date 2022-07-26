@@ -1,5 +1,5 @@
-This is a collection of react work I have created.
-I first created the gratitudes app to learn about APIs, database connection, and AWS in general.
+This is a collection of react work I have created. 
+I first created the gratitudes app to learn about API, database connection, and AWS in general.
 I then added the portfolio section to better present my work. Plus, I had a lot of fun with the design work involved.
 
 The most extensive project would be the headless e-commerce project.

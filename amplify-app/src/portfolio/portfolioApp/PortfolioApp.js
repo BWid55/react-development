@@ -177,7 +177,7 @@ function PortfolioApp(props) {
     {
       name: "Headless Ecommerce",
       description:
-        "IN PROGRESS: A headless ecommerce website using Shopify as its CMS. This project is completely functional and is poised to release as the official code source for the operational store.",
+        "IN PROGRESS: A headless ecommerce website using Shopify as its CMS. This project is functional and will release as the official code source for the store. My favorite code pieces are the cart and the custom text products!",
       tech: [
         "React",
         "React Router",
@@ -308,7 +308,7 @@ function PortfolioApp(props) {
             <p>{project.description}</p>
             <div className={styles.tech}>
               <ul>
-                <p className={styles.projectCardTechIcon}>TECH</p>
+                <li className={styles.projectCardTechIcon}>TECH</li>
                 {project.tech.map((tech, index) => (
                   <li key={index}>{tech}</li>
                 ))}

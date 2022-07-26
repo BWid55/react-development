@@ -26,48 +26,50 @@ function CandleProduct() {
   const [productTitle, setProductTitle] = useState(null);
 
   //function used to make requests for product data from Shopify API
-  const getProduct = async () => {
-    const { data } = await storefront(productPageQuery);
-    setProduct(data);
-  };
-  const productPageQuery = `
-    {
-      productByHandle(handle: "${location.pathname.split("/").slice(-1)[0]}") {
-        title
-        tags
-        options{
-          name
-          values
-        }
-        images(first: 1) {
-          edges {
-            node {
-              transformedSrc
-              altText
+  useEffect(() => {
+    const getProduct = async () => {
+      const { data } = await storefront(productPageQuery);
+      setProduct(data);
+    };
+    const productPageQuery = `
+      {
+        productByHandle(handle: "${
+          location.pathname.split("/").slice(-1)[0]
+        }") {
+          title
+          tags
+          options{
+            name
+            values
+          }
+          images(first: 1) {
+            edges {
+              node {
+                transformedSrc
+                altText
+              }
             }
           }
-        }
-        variants(first: 50) {
-          edges {
-            node {
-              title
-              id
-              selectedOptions{
-                name
-                value
-              }
-              priceV2{
-                amount
+          variants(first: 50) {
+            edges {
+              node {
+                title
+                id
+                selectedOptions{
+                  name
+                  value
+                }
+                priceV2{
+                  amount
+                }
               }
             }
           }
         }
       }
-    }
-  `;
-  useEffect(() => {
+    `;
     getProduct();
-  }, [productPageQuery]);
+  }, [location.pathname]);
 
   //used to update variant data for cart item on variant selector change
   useEffect(() => {
@@ -196,6 +198,8 @@ function CandleProduct() {
                       productTitle={product.productByHandle.title}
                     />
                   );
+                } else {
+                  return null;
                 }
               })}
             </div>

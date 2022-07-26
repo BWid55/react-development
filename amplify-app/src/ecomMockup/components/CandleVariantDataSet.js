@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Price from "./Price";
 
 function PriceAndVariant(props) {
   //component used to update variant item data in CandleProduct.js
@@ -10,9 +9,15 @@ function PriceAndVariant(props) {
 
   useEffect(() => {
     props.onVariantChange(variantId, price, variantTitle, productTitle);
-  }, [props, variantId]);
+  }, [props, variantId, price, productTitle, variantTitle]);
 
-  return <div className="variant-price"><span className="variant-price-inner">${Number(props.price).toFixed(2)}</span></div>;
+  return (
+    <div className="variant-price">
+      <span className="variant-price-inner">
+        ${Number(props.price).toFixed(2)}
+      </span>
+    </div>
+  );
 }
 
 export default PriceAndVariant;
