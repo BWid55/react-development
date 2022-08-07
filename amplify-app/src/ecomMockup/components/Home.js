@@ -80,7 +80,7 @@ function Home() {
             >
               <div className="homepage-content-main-product-image-icon-alignment">
                 <Link to={"candle/blow-me"} className="button-link">
-                  <img src="https://cdn.shopify.com/s/files/1/0585/5710/4260/files/flame_150_PX.png?v=1656550757" />
+                  <img src="https://cdn.shopify.com/s/files/1/0585/5710/4260/files/flame_150_PX.png?v=1656550757" alt="Blow me candle" />
                 </Link>
               </div>
               <Link to={"candle/blow-me"} className="button-link">

@@ -11,18 +11,22 @@ function Footer() {
       <hr />
       <div className="mw-large">
         <img
+          loading="lazy"
           src="https://cdn.shopify.com/s/files/1/0585/5710/4260/files/IMG_7098-crop.png?v=1656528262"
           alt=""
         />
         <img
+          loading="lazy"
           src="https://cdn.shopify.com/s/files/1/0585/5710/4260/files/IMG_6074-crop.png?v=1656528350"
           alt=""
         />
         <img
+          loading="lazy"
           src="https://cdn.shopify.com/s/files/1/0585/5710/4260/files/IMG_5989-crop.png?v=1656528180"
           alt=""
         />
         <img
+          loading="lazy"
           src="https://cdn.shopify.com/s/files/1/0585/5710/4260/files/IMG_5962-crop.png?v=1656528179"
           alt=""
         />

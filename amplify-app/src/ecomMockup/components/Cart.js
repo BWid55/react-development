@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
+import ReactDOM from "react-dom";
 import { useTransition, animated } from "react-spring";
-
 import { BsMinecart } from "react-icons/bs";
 import { AiFillCloseCircle } from "react-icons/ai";
 import CartItems from "./CartItems";
@@ -10,7 +10,7 @@ import CartContext from "../utils/cartContext";
 function Cart() {
   //state and context used transfer to Shopify checkout, update the quantity of items in cart, and open/close the cart
   const [createCheckoutTrigger, setCreateCheckoutTrigger] = useState(false);
-  const { cartQuantity } = useContext(CartContext)
+  const { cartQuantity } = useContext(CartContext);
   const [toggleCart, setToggleCart] = useState(false);
 
   //handlers used to trigger opening the cart, closing the cart, and transferring to Shopify checkout
@@ -43,27 +43,35 @@ function Cart() {
       <div>
         {toggleCart && (
           <>
-            <div className="cart-backdrop" onClick={cartCloseHandler} />
-            {cartTransition(
-              (style, item) =>
-                item && (
-                  <animated.div style={style} className="cart-popup">
-                    <div className="cart-popup-header">
-                      <h2>What You're Getting</h2>
-                      <AiFillCloseCircle size={25} onClick={cartCloseHandler} />
-                    </div>
-                    <CartItems
-                      createCheckoutTrigger={createCheckoutTrigger}
-                    />
-                    <button
-                      className="cart-popup-checkout"
-                      onClick={checkoutButtonClickHandler}
-                      disabled={!cartQuantity}
-                    >
-                      Checkout
-                    </button>
-                  </animated.div>
-                )
+            {ReactDOM.createPortal(
+              <>
+                <div className="cart-backdrop" onClick={cartCloseHandler} />
+                {cartTransition(
+                  (style, item) =>
+                    item && (
+                      <animated.div style={style} className="cart-popup">
+                        <div className="cart-popup-header">
+                          <h2>What You're Getting</h2>
+                          <AiFillCloseCircle
+                            size={25}
+                            onClick={cartCloseHandler}
+                          />
+                        </div>
+                        <CartItems
+                          createCheckoutTrigger={createCheckoutTrigger}
+                        />
+                        <button
+                          className="cart-popup-checkout"
+                          onClick={checkoutButtonClickHandler}
+                          disabled={!cartQuantity}
+                        >
+                          Checkout
+                        </button>
+                      </animated.div>
+                    )
+                )}
+              </>,
+              document.querySelector("#cart-modal-root")
             )}
           </>
         )}

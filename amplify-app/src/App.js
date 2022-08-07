@@ -6,6 +6,7 @@ import { BiChevronRight } from "react-icons/bi";
 import GratitudesApp from "./gratitudes/gratitudesApp/GratitudesApp";
 import PortfolioApp from "./portfolio/portfolioApp/PortfolioApp";
 import EcomMockupApp from "./ecomMockup/ecomMockupApp/EcomMockupApp";
+import ThreeApp from "./three/ThreeApp/ThreeApp";
 import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
     portfolio: true,
     gratitudesApp: false,
     ecommerceMockup: false,
+    three:false,
   });
 
   const openPortfolioHandler = () => {
@@ -20,6 +22,7 @@ function App() {
       portfolio: true,
       gratitudesApp: false,
       ecommerceMockup: false,
+      three:false,
     });
   };
   const openGratitudesAppHandler = () => {
@@ -27,6 +30,7 @@ function App() {
       portfolio: false,
       gratitudesApp: true,
       ecommerceMockup: false,
+      three:false,
     });
   };
   const openEcommerceMockupHandler = () => {
@@ -34,6 +38,15 @@ function App() {
       portfolio: false,
       gratitudesApp: false,
       ecommerceMockup: true,
+      three:false,
+    });
+  };
+  const openThreeHandler = () => {
+    setOpenedApp({
+      portfolio: false,
+      gratitudesApp: false,
+      ecommerceMockup: false,
+      three:true,
     });
   };
 
@@ -143,16 +156,26 @@ function App() {
                 </span>
               </>
             )}
+            {openedApp.three && (
+              <>
+                <BiChevronRight style={{ color: "white", marginLeft: "8px" }} />
+                <span style={{ color: "white", marginLeft: "8px" }}>
+                  Three
+                </span>
+              </>
+            )}
           </div>
         </div>
         {openedApp.portfolio && (
           <PortfolioApp
             onClickGratitudesAppButton={openGratitudesAppHandler}
             onClickEcommerceMockupButton={openEcommerceMockupHandler}
+            onClickThreeButton={openThreeHandler}
           />
         )}
         {openedApp.gratitudesApp && <GratitudesApp />}
         {openedApp.ecommerceMockup && <EcomMockupApp />}
+        {openedApp.three && <ThreeApp />}
       </Router>
     </div>
   );

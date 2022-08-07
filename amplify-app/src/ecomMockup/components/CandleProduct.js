@@ -6,6 +6,7 @@ import CartContext from "../utils/cartContext";
 import { GiClick } from "react-icons/gi";
 import CandleVariantSelectors from "./CandleVariantSelectors";
 import PriceAndVariant from "./CandleVariantDataSet";
+import LoadingAndError from "./LoadingAndError";
 
 function CandleProduct() {
   //context used for updating cart
@@ -15,6 +16,9 @@ function CandleProduct() {
   const location = useLocation();
   //product data recieved from Shopify API store here
   const [product, setProduct] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const [noProduct, setNoProduct] = useState(false);
   //these state items are used for selecting variant items for the cart, including customAttributes as custom text
   const [scent, setScent] = useState("Surprise me!");
   const [size, setSize] = useState("8 oz Regular");
@@ -28,8 +32,20 @@ function CandleProduct() {
   //function used to make requests for product data from Shopify API
   useEffect(() => {
     const getProduct = async () => {
-      const { data } = await storefront(productPageQuery);
-      setProduct(data);
+      setIsLoading(true);
+      try {
+        const { data } = await storefront(productPageQuery);
+        if (data.productByHandle) {
+          setProduct(data.productByHandle);
+        } else if (data.productByHandle === null) {
+          setNoProduct(true);
+        } else {
+          setHasError(true);
+        }
+        setIsLoading(false);
+      } catch (error) {
+        setHasError(true);
+      }
     };
     const productPageQuery = `
       {
@@ -76,7 +92,7 @@ function CandleProduct() {
     setCartId(variantId + customText);
   }, [variantId, customText]);
   useEffect(() => {
-    if (product && product.productByHandle.tags.includes("customize-text")) {
+    if (product && product.tags.includes("customize-text")) {
       setCustomText("Default Text");
     }
   }, [product]);
@@ -107,8 +123,8 @@ function CandleProduct() {
           id: variantId,
           quantity: 1,
           price: price,
-          image: product.productByHandle.images.edges[0].node.transformedSrc,
-          productTitle: product.productByHandle.title,
+          image: product.images.edges[0].node.transformedSrc,
+          productTitle: product.title,
           variantTitle: variantTitle,
           customText: customText,
         },
@@ -128,9 +144,8 @@ function CandleProduct() {
                 id: variantId,
                 quantity: item.quantity + 1,
                 price: price,
-                image:
-                  product.productByHandle.images.edges[0].node.transformedSrc,
-                productTitle: product.productByHandle.title,
+                image: product.images.edges[0].node.transformedSrc,
+                productTitle: product.title,
                 variantTitle: variantTitle,
                 customText: customText,
               };
@@ -148,9 +163,8 @@ function CandleProduct() {
               id: variantId,
               quantity: 1,
               price: price,
-              image:
-                product.productByHandle.images.edges[0].node.transformedSrc,
-              productTitle: product.productByHandle.title,
+              image: product.images.edges[0].node.transformedSrc,
+              productTitle: product.title,
               variantTitle: variantTitle,
               customText: customText,
             },
@@ -163,30 +177,30 @@ function CandleProduct() {
   };
 
   return (
-    <>
-      {" "}
+    <LoadingAndError
+      isLoading={isLoading}
+      hasError={hasError}
+      incorrectEndpoint={noProduct}
+    >
       {product && (
         <div className="product-page">
-          <h2 className="content-header">{product.productByHandle.title}</h2>
+          <h2 className="content-header">{product.title}</h2>
           <div className="product-page-content">
             <div className="product-page-content-image">
               <img
-                src={
-                  product.productByHandle.images.edges[0].node.transformedSrc
-                }
-                alt={product.productByHandle.images.edges[0].node.altText}
+                src={product.images.edges[0].node.transformedSrc}
+                alt={product.images.edges[0].node.altText}
               />
-              {product.productByHandle.tags.includes("customize-text") &&
-                customText && (
-                  <div className="product-page-content-image-text">
-                    <Draggable>
-                      <p>
-                        {customText} <GiClick size={30} />
-                      </p>
-                    </Draggable>
-                  </div>
-                )}
-              {product.productByHandle.variants.edges.map((variant) => {
+              {product.tags.includes("customize-text") && customText && (
+                <div className="product-page-content-image-text">
+                  <Draggable>
+                    <p>
+                      {customText} <GiClick size={30} />
+                    </p>
+                  </Draggable>
+                </div>
+              )}
+              {product.variants.edges.map((variant) => {
                 if (variant.node.title === scent + " / " + size) {
                   return (
                     <PriceAndVariant
@@ -195,7 +209,7 @@ function CandleProduct() {
                       price={variant.node.priceV2.amount}
                       variantId={variant.node.id}
                       variantTitle={variant.node.title}
-                      productTitle={product.productByHandle.title}
+                      productTitle={product.title}
                     />
                   );
                 } else {
@@ -204,12 +218,12 @@ function CandleProduct() {
               })}
             </div>
             <CandleVariantSelectors
-              options={product.productByHandle.options}
+              options={product.options}
               onScentChange={scentChangeHandler}
               onSizeChange={sizeChangeHandler}
             />
             <div>
-              {product.productByHandle.tags.includes("customize-text") && (
+              {product.tags.includes("customize-text") && (
                 <>
                   <label
                     className="custom-text-label"
@@ -230,7 +244,7 @@ function CandleProduct() {
         </div>
       )}
       <button onClick={cartAddHandler}>Add to Cart</button>
-    </>
+    </LoadingAndError>
   );
 }
 

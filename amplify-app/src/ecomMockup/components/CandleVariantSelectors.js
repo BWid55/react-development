@@ -14,7 +14,7 @@ const ProductVariantSelector = (props) => {
     <div className="variant-selectors">
       {props.options.map((option) => {
         return (
-          <div className="variant-selector">
+          <div className="variant-selector" key={option.name}>
             <label htmlFor={option.name}>{option.name}</label>
             <select
               onChange={(e) => changeHandler(e, option.name)}
@@ -22,7 +22,11 @@ const ProductVariantSelector = (props) => {
               defaultValue={option.name === "Size" && "8 oz Regular"}
             >
               {option.values.map((value) => {
-                return <option value={value}>{value}</option>;
+                return (
+                  <option value={value} key={value}>
+                    {value}
+                  </option>
+                );
               })}
             </select>
           </div>

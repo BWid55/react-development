@@ -7,7 +7,8 @@ import CartContext from "../utils/cartContext";
 
 function CartItems({ createCheckoutTrigger }) {
   //context used to update cart data through + and - on cart items
-  let { cartItems, setCartItems, cartQuantity, setCartQuantity } = useContext(CartContext);
+  let { cartItems, setCartItems, cartQuantity, setCartQuantity } =
+    useContext(CartContext);
   //state used to house product data which is used in the query section, on checkout initiation this data is sent in the API call to add all products to the checkout intiated
   const [cartItemsQuerySection, setCartItemsQuerySection] = useState("");
   //update context on + and - to reflect increase or decrease in cart quantity
@@ -60,23 +61,6 @@ function CartItems({ createCheckoutTrigger }) {
     );
   };
 
-  const createCheckoutHandler = async () => {
-    const createCheckout = async () => {
-      const { data } = await storefront(checkoutQuery);
-      window.location.href = data.checkoutCreate.checkout.webUrl;
-    };
-    const checkoutQuery = `mutation {
-      checkoutCreate(input: {
-        lineItems: [${cartItemsQuerySection}]
-      }) {
-        checkout {
-           webUrl
-        }
-      }
-    }`;
-    createCheckout();
-  };
-
   useEffect(() => {
     setCartItemsQuerySection(
       cartItems
@@ -88,9 +72,25 @@ function CartItems({ createCheckoutTrigger }) {
   }, [cartItems]);
   useEffect(() => {
     if (createCheckoutTrigger) {
+      const createCheckoutHandler = async () => {
+        const createCheckout = async () => {
+          const { data } = await storefront(checkoutQuery);
+          window.location.href = data.checkoutCreate.checkout.webUrl;
+        };
+        const checkoutQuery = `mutation {
+          checkoutCreate(input: {
+            lineItems: [${cartItemsQuerySection}]
+          }) {
+            checkout {
+               webUrl
+            }
+          }
+        }`;
+        createCheckout();
+      };
       createCheckoutHandler();
     }
-  }, [createCheckoutTrigger]);
+  }, [createCheckoutTrigger, cartItemsQuerySection]);
 
   return (
     <div className="cart-popup-items">

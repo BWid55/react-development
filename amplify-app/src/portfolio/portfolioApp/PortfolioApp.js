@@ -33,6 +33,9 @@ function PortfolioApp(props) {
   const openEcommerceMockupHandler = () => {
     props.onClickEcommerceMockupButton();
   };
+  // const openThree = () => {
+  //   props.onClickThreeButton();
+  // };
 
   const contactInfoElements = [
     { icon: <AiOutlineMail size={25} />, text: "Brendan.Widmer@gmail.com" },
@@ -192,6 +195,12 @@ function PortfolioApp(props) {
         <button onClick={openEcommerceMockupHandler}>View Project</button>
       ),
     },
+    // {
+    //   name: "Three.js With Fiber",
+    //   description: "This is the first project I have built using three.js. Beginning learning web development I spent a lot of energy on CSS, then I transitioned to learning a modern frontend framework and I have spent little time dedicatedly learning anything visional. It has returned!",
+    //   tech: ["React", "Three.js", "React Three Fiber", "React Three Drei"],
+    //   button: <button onClick={openThree}>View Project</button>,
+    // },
   ];
 
   return (
@@ -202,7 +211,7 @@ function PortfolioApp(props) {
       <div className={styles.headerInfo}>
         <h2>Brendan Widmer</h2>
         <h3>Frontend Web Developer</h3>
-        <p>Build through learning - learn through building</p>
+        <p>build through learning - learn through building</p>
       </div>
       <p className={styles.bio}>
         I have been coding for three years and have been working in and

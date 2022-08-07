@@ -15,15 +15,17 @@ function QuantityButtons(props) {
   };
   useEffect(() => {
     if (props.requireAboveZero) {
-        setRequireAboveZero(true);
+      setRequireAboveZero(true);
     }
-  }, []);
+  }, [props.requireAboveZero]);
 
   return (
     <div className="quantity-buttons">
       <AiOutlineMinus
         onClick={
-            requireAboveZero && props.quantity === 1 ? undefined : () => minusHandler()
+          requireAboveZero && props.quantity === 1
+            ? undefined
+            : () => minusHandler()
         }
         className={requireAboveZero && props.quantity === 1 && "disabled"}
       />

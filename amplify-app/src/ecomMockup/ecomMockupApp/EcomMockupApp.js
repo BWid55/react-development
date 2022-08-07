@@ -29,6 +29,7 @@ function EcomMockupApp() {
         value={{ cartItems, setCartItems, cartQuantity, setCartQuantity }}
       >
         <div className="ecom-mockup-app">
+          <div id="cart-modal-root" />
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path={"/candle/*"} element={<CandleProductPage />} />
